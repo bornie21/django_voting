@@ -1,12 +1,12 @@
 from rest_framework.serializers import ModelSerializer
 
-from polls.models import Question,Choice
+from polls.models import Question, Choice
 
 
 class QuestionSerializer(ModelSerializer):
     class Meta:
-        model=Question
-        fields=[
+        model = Question
+        fields = [
             'question_text',
             'pub_date'
         ]
@@ -14,8 +14,8 @@ class QuestionSerializer(ModelSerializer):
 
 class ChoiceSerializer(ModelSerializer):
     class Meta:
-        model=Choice
-        fields=[
+        model = Choice
+        fields = [
             'question',
             'choice_text',
             'votes'

@@ -1,6 +1,6 @@
-from rest_framework.generics import ListAPIView,RetrieveAPIView,DestroyAPIView,UpdateAPIView,CreateAPIView,RetrieveUpdateDestroyAPIView
-from polls.models import Choice,Question
-from .serializers import QuestionSerializer,ChoiceSerializer
+from rest_framework.generics import ListAPIView,CreateAPIView, RetrieveUpdateDestroyAPIView
+from polls.models import Choice, Question
+from .serializers import QuestionSerializer, ChoiceSerializer
 
 
 class QuestionList(ListAPIView):
@@ -31,4 +31,3 @@ class ChoiceDetail(RetrieveUpdateDestroyAPIView):
 class ChoiceCreate(CreateAPIView):
     queryset = Choice.objects.all()
     serializer_class = ChoiceSerializer
-
