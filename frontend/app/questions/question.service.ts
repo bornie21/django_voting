@@ -17,7 +17,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/toPromise';
 
 import { Question } from './question';
-import {contentHeaders} from './headers'
+import {contentHeaders} from '../headers'
 
 
 @Injectable()
@@ -28,28 +28,37 @@ private createQuestionUrl='http://127.0.0.1:8000/api/polls/create_question/';
 private questionUrl='question/';
 
 private updateHeaders = new Headers({'Content-Type': 'application/json'});
+
 constructor(private http: Http) { }
 getQuestions(): Observable<Question[]> {
-    //return Promise.resolve(QUESTIONS);
     return this.http.get(this.apiUrl,{headers:contentHeaders})
-                .map((res:Response) => res.json())
+                .map((res:Response) => res.json());
                //.catch((error:any) => Observable.throw(error.json().error || 'Server error'
   }
 
-  update(question: Question): Observable<Question> {
+update(question: Question): Observable<Question[]> {
   const url = `${this.apiUrl}/${question.id}/${this.questionUrl}`;
-  return this.http.patch(url, JSON.stringify(question), {headers: this.updateHeaders})
-    .map((res:Response) => res.json())
-    .subscribe(
-     err=>this.handleError(err));
-}
- create(question_text: string): Observable<Question> {
+  let saveHeaders = new Headers({'Content-Type': 'application/json'});
+  saveHeaders.append('Accept','application/json');
+  return this.http.patch(url, JSON.stringify(question), {headers: saveHeaders})
+    .map((res:Response) => res.json());
 
+}
+
+ create(question_text: string): Observable<Question[]> {
+ this.updateHeaders.append('Accept','application/json');
     return this.http
       .post(this.createQuestionUrl, JSON.stringify({question_text: question_text}), {headers: this.updateHeaders})
       .map((res:Response) => res.json())
-      .subscribe(
-      err=>this.handleError(err));
+      .catch(this.handleError);
+}
+
+delete(id: number) {
+//this.updateHeaders.append('Accept','application/json');
+  const url = `${this.apiUrl}/${id}/${this.questionUrl}`;
+  return this.http.delete(url);
+    //.map((res:Response) => res.json());
+
 }
 
 

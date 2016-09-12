@@ -37,6 +37,13 @@ button:disabled {
   color: #aaa;
   cursor: auto;
 }
+button.delete {
+  margin-top: 2px;
+  /*float:right;
+  margin-right: .8em;*/
+  background-color: red !important;
+  color:white;
+}
 
 /* Navigation link styles */
 nav a {

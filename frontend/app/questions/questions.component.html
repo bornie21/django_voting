@@ -1,0 +1,20 @@
+<div>
+        <label>Question:</label> <input #question_text />
+        <button (click)="add(question_text.value); question_text.value=''">
+          Add
+        </button>
+</div>
+<table>
+  <tr *ngFor=" let question of questions"(click)="onSelect(question)">
+    <td >
+    <span class="badge">{{question.id}}</span> {{question.question_text}}
+    </td>
+    <td>
+       <button class="delete"
+      (click)="delete(question); $event.stopPropagation()">x</button>
+    </td>
+  </tr>
+</table>
+
+<question-detail [question]="selectedQuestion"></question-detail>
+<button (click)="save()">Save</button>
